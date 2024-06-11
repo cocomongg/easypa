@@ -1,1 +1,1 @@
-# easypa
+# Easy Personal Assistant (EasyPA)
