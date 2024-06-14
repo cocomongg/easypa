@@ -1,2 +1,2 @@
 # easypa
-todo
+spring ai
