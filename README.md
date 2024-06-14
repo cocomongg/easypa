@@ -1,2 +1,1 @@
-# easypa
-spring ai
+# Easy Personal Assistant (EasyPA)
