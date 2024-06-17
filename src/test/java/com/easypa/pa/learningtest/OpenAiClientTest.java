@@ -45,6 +45,9 @@ public class OpenAiClientTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private MilvusVectorStore vectorStore;
+
     private ChatClient chatClient;
 
     record ActorFilms(String actor, List<String> movies) {
@@ -222,6 +225,24 @@ public class OpenAiClientTest {
                 .advisors(new MessageChatMemoryAdvisor(chatMemory))
                 .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, conversationId))
                 .user("Do you know my name and job?")
+                .call()
+                .content();
+
+        // then
+        assertThat(content).isNotEmpty();
+        log.info("### content: {}", content);
+    }
+
+    @DisplayName("")
+    @Test
+    public void chatClientWithRAG() {
+        // given
+        String userText = "who is andrew?";
+
+        // when
+        String content = chatClient.prompt()
+                .advisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.query(userText)))
+                .user(userText)
                 .call()
                 .content();
 
