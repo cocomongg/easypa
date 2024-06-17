@@ -2,3 +2,13 @@ spring:
   ai:
     openai:
       api-key: YOUR-API-KEY
+    vectorstore:
+      milvus:
+        client:
+          host: "localhost"
+          port: 19530
+          username: "root"
+          password: "milvus"
+        databaseName: "default"
+        collectionName: "vector_store"
+        initialize-schema: false
